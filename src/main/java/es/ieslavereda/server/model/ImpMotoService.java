@@ -1,5 +1,6 @@
 package es.ieslavereda.server.model;
 
+import es.ieslavereda.model.Coche;
 import es.ieslavereda.model.Moto;
 import es.ieslavereda.model.MyDataSource;
 import es.ieslavereda.model.Result;
@@ -7,6 +8,7 @@ import es.ieslavereda.model.Result;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class ImpMotoService implements IMotoInterface {
     @Override
@@ -68,7 +70,7 @@ public class ImpMotoService implements IMotoInterface {
     }
 
     @Override
-    public Result<Moto> borrarMoto(String matricula) {
+    public Result<String> borrarMoto(String matricula) {
         String sql = "{call gestionvehiculos.borrarMoto(?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
@@ -83,6 +85,38 @@ public class ImpMotoService implements IMotoInterface {
 
         } catch (SQLException throwables) {
             return new Result.Error("no has podido actualizar la moto"+matricula,404);
+        }
+    }
+
+    @Override
+    public Result<Moto> seleccionarMoto(String matricula) {
+        String sql = "{call gestionvehiculos.consultarmoto(?,?,?,?,?,?,?,?,?,?,?)}";
+        try(Connection con = MyDataSource.getOracleDataSource().getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
+
+
+            cs.setString(1,matricula);
+            cs.registerOutParameter(2, Types.NUMERIC);
+            cs.registerOutParameter(3, Types.VARCHAR);
+            cs.registerOutParameter(4, Types.VARCHAR);
+            cs.registerOutParameter(5, Types.VARCHAR);
+            cs.registerOutParameter(6, Types.NUMERIC);
+            cs.registerOutParameter(7, Types.VARCHAR);
+            cs.registerOutParameter(8, Types.VARCHAR);
+            cs.registerOutParameter(9, Types.VARCHAR);
+            cs.registerOutParameter(10, Types.NUMERIC);
+            cs.registerOutParameter(11, Types.NUMERIC);
+
+            cs.execute();
+
+            Moto moto = new Moto(matricula,cs.getDouble(2),cs.getString(3),cs.getString(4),cs.getString(5),cs.getDouble(6),cs.getString(7),cs.getString(8),cs.getString(9),cs.getDouble(10),cs.getDouble(11));
+
+
+            return new Result.Success<Moto>(moto);
+
+
+        } catch (SQLException throwables) {
+            return new Result.Error("no has podido seleccionar la moto"+matricula,404);
         }
     }
 }

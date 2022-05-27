@@ -45,4 +45,36 @@ public class PatineteController {
 
         return result;
     }
+
+    public static Result<String> borrarPatinete(Request request, Response response){
+        Result<String> result;
+        String body = request.body();
+        String patinete = request.queryParams("matricula");
+        logger.info(patinete);
+        result = service.borrarPatinete(patinete);
+
+        if (result instanceof Result.Success){
+            response.status(200);
+        } else {
+            response.status(404);
+        }
+
+        return result;
+    }
+
+    public static Result<Patinete> seleccionarPatinete(Request request, Response response){
+        Result<Patinete> result;
+        String body = request.body();
+        String patinete = request.queryParams("matricula");
+        logger.info(patinete);
+        result = service.seleccionarPatinete(patinete);
+
+        if (result instanceof Result.Success){
+            response.status(200);
+        } else {
+            response.status(404);
+        }
+
+        return result;
+    }
 }

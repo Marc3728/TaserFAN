@@ -46,12 +46,28 @@ public class MotoController {
         return result;
     }
 
-    public static Result<Moto> borrarMoto(Request request, Response response){
-        Result<Moto> result;
+    public static Result<String> borrarMoto(Request request, Response response){
+        Result<String> result;
         String body = request.body();
         String moto = request.queryParams("matricula");
         logger.info(moto);
         result = service.borrarMoto(moto);
+
+        if (result instanceof Result.Success){
+            response.status(200);
+        } else {
+            response.status(404);
+        }
+
+        return result;
+    }
+
+    public static Result<Moto> seleccionarMoto(Request request, Response response){
+        Result<Moto> result;
+        String body = request.body();
+        String moto = request.queryParams("matricula");
+        logger.info(moto);
+        result = service.seleccionarMoto(moto);
 
         if (result instanceof Result.Success){
             response.status(200);

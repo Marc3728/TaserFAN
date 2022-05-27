@@ -7,6 +7,7 @@ import es.ieslavereda.model.Result;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class ImpCocheService implements ICocheInterface {
     @Override
@@ -70,7 +71,7 @@ public class ImpCocheService implements ICocheInterface {
     }
 
     @Override
-    public Result<Coche> borrarCoche(String matricula) {
+    public Result<String> borrarCoche(String matricula) {
         String sql = "{call gestionvehiculos.borrarcoche(?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
@@ -86,6 +87,38 @@ public class ImpCocheService implements ICocheInterface {
 
         } catch (SQLException throwables) {
             return new Result.Error("no has podido borrar el coche"+matricula,404);
+        }
+    }
+
+    @Override
+    public Result<Coche> seleccionarCoche(String matricula) {
+        String sql = "{call gestionvehiculos.consultarcoche(?,?,?,?,?,?,?,?,?,?,?)}";
+        try(Connection con = MyDataSource.getOracleDataSource().getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
+
+
+            cs.setString(1,matricula);
+            cs.registerOutParameter(2, Types.NUMERIC);
+            cs.registerOutParameter(3, Types.VARCHAR);
+            cs.registerOutParameter(4, Types.VARCHAR);
+            cs.registerOutParameter(5, Types.VARCHAR);
+            cs.registerOutParameter(6, Types.NUMERIC);
+            cs.registerOutParameter(7, Types.VARCHAR);
+            cs.registerOutParameter(8, Types.VARCHAR);
+            cs.registerOutParameter(9, Types.VARCHAR);
+            cs.registerOutParameter(10, Types.NUMERIC);
+            cs.registerOutParameter(11, Types.NUMERIC);
+
+            cs.execute();
+
+            Coche coche = new Coche(matricula,cs.getDouble(2),cs.getString(3),cs.getString(4),cs.getString(5),cs.getDouble(6),cs.getString(7),cs.getString(8),cs.getString(9),cs.getInt(10),cs.getInt(11));
+
+
+            return new Result.Success<Coche>(coche);
+
+
+        } catch (SQLException throwables) {
+            return new Result.Error("no has podido seleccionar el coche"+matricula,404);
         }
     }
 }

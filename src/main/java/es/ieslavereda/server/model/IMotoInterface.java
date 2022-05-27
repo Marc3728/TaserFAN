@@ -7,5 +7,6 @@ import es.ieslavereda.model.Result;
 public interface IMotoInterface {
     Result<Moto> insertarMoto(Moto moto);
     Result<Moto> updatearMoto(Moto moto);
-    Result<Moto> borrarMoto(String matricula);
+    Result<String> borrarMoto(String matricula);
+    Result<Moto> seleccionarMoto(String matricula);
 }

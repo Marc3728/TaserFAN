@@ -20,6 +20,16 @@ public class app {
         post(API.UPDATEARMOTO, MotoController::updatearMoto, new JsonTransformer<>());
         post(API.UPDATEARBICICLETA, BicicletaController::updatearBicicleta, new JsonTransformer<>());
         post(API.UPDATEARPATINETE, PatineteController::updatearPatinete, new JsonTransformer<>());
+
+        delete(API.BORRARCOCHE, CocheController::borrarCoche, new JsonTransformer<>());
+        delete(API.BORRARMOTO, MotoController::borrarMoto, new JsonTransformer<>());
+        delete(API.BORRARBICICLETA, BicicletaController::borrarBicicleta, new JsonTransformer<>());
+        delete(API.BORRARPATINETE, PatineteController::borrarPatinete, new JsonTransformer<>());
+
+        post(API.SELECCIONARCOCHE, CocheController::seleccionarCoche, new JsonTransformer<>());
+        post(API.SELECCIONARMOTO, MotoController::seleccionarMoto, new JsonTransformer<>());
+        post(API.SELECCIONARBICICLETA, BicicletaController::seleccionarBicicleta, new JsonTransformer<>());
+        post(API.SELECCIONARPATINETE, PatineteController::seleccionarPatinete, new JsonTransformer<>());
     }
 }
 

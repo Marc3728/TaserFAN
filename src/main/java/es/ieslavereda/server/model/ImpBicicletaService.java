@@ -1,12 +1,14 @@
 package es.ieslavereda.server.model;
 
 import es.ieslavereda.model.Bicicleta;
+import es.ieslavereda.model.Coche;
 import es.ieslavereda.model.MyDataSource;
 import es.ieslavereda.model.Result;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class ImpBicicletaService implements IBicicletaInterface {
     @Override
@@ -68,7 +70,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
     }
 
     @Override
-    public Result<Bicicleta> borrarBicicleta(String matricula) {
+    public Result<String> borrarBicicleta(String matricula) {
         String sql = "{call gestionvehiculos.borrarBicicleta(?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
@@ -83,6 +85,38 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
         } catch (SQLException throwables) {
             return new Result.Error("no has podido borrar la bicicleta"+matricula,404);
+        }
+    }
+
+    @Override
+    public Result<Bicicleta> seleccionarBicicleta(String matricula) {
+        String sql = "{call gestionvehiculos.consultarbicicleta(?,?,?,?,?,?,?,?,?,?,?)}";
+        try(Connection con = MyDataSource.getOracleDataSource().getConnection();
+            CallableStatement cs = con.prepareCall(sql)) {
+
+
+            cs.setString(1,matricula);
+            cs.registerOutParameter(2, Types.NUMERIC);
+            cs.registerOutParameter(3, Types.VARCHAR);
+            cs.registerOutParameter(4, Types.VARCHAR);
+            cs.registerOutParameter(5, Types.VARCHAR);
+            cs.registerOutParameter(6, Types.NUMERIC);
+            cs.registerOutParameter(7, Types.VARCHAR);
+            cs.registerOutParameter(8, Types.VARCHAR);
+            cs.registerOutParameter(9, Types.VARCHAR);
+            cs.registerOutParameter(10, Types.NUMERIC);
+            cs.registerOutParameter(11, Types.NUMERIC);
+
+            cs.execute();
+
+            Bicicleta bicicleta = new Bicicleta(matricula,cs.getDouble(2),cs.getString(3),cs.getString(4),cs.getString(5),cs.getDouble(6),cs.getString(7),cs.getString(8),cs.getString(9),cs.getDouble(10),cs.getInt(11));
+
+
+            return new Result.Success<Bicicleta>(bicicleta);
+
+
+        } catch (SQLException throwables) {
+            return new Result.Error("no has podido seleccionar la bicicleta"+matricula,404);
         }
     }
 }

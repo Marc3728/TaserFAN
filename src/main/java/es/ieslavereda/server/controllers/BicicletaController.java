@@ -46,12 +46,28 @@ public class BicicletaController {
         return result;
     }
 
-    public static Result<Bicicleta> borrarBicicleta(Request request, Response response){
-        Result<Bicicleta> result;
+    public static Result<String> borrarBicicleta(Request request, Response response){
+        Result<String> result;
         String body = request.body();
         String bicicleta = request.queryParams("matricula");
         logger.info(bicicleta);
         result = service.borrarBicicleta(bicicleta);
+
+        if (result instanceof Result.Success){
+            response.status(200);
+        } else {
+            response.status(404);
+        }
+
+        return result;
+    }
+
+    public static Result<Bicicleta> seleccionarBicicleta(Request request, Response response){
+        Result<Bicicleta> result;
+        String body = request.body();
+        String bicicleta = request.queryParams("matricula");
+        logger.info(bicicleta);
+        result = service.seleccionarBicicleta(bicicleta);
 
         if (result instanceof Result.Success){
             response.status(200);

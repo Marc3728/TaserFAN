@@ -7,5 +7,6 @@ import es.ieslavereda.model.Result;
 public interface IBicicletaInterface {
     Result<Bicicleta> insertarBicicleta(Bicicleta bicicleta);
     Result<Bicicleta> updatearBicicleta(Bicicleta bicicleta);
-    Result<Bicicleta> borrarBicicleta(String matricula);
+    Result<String> borrarBicicleta(String matricula);
+    Result<Bicicleta> seleccionarBicicleta(String matricula);
 }

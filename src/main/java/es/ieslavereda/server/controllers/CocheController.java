@@ -45,12 +45,28 @@ public class CocheController {
         return result;
     }
 
-    public static Result<Coche> borrarCoche(Request request, Response response){
-        Result<Coche> result;
+    public static Result<String> borrarCoche(Request request, Response response){
+        Result<String> result;
         String body = request.body();
         String coche = request.queryParams("matricula");
         logger.info(coche);
         result = service.borrarCoche(coche);
+
+        if (result instanceof Result.Success){
+            response.status(200);
+        } else {
+            response.status(404);
+        }
+
+        return result;
+    }
+
+    public static Result<Coche> seleccionarCoche(Request request, Response response){
+        Result<Coche> result;
+        String body = request.body();
+        String coche = request.queryParams("matricula");
+        logger.info(coche);
+        result = service.seleccionarCoche(coche);
 
         if (result instanceof Result.Success){
             response.status(200);

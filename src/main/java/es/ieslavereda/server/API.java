@@ -23,6 +23,11 @@ public class API {
     public static final String SELECCIONARBICICLETA = "/selb";
     public static final String SELECCIONARPATINETE = "/selp";
 
+    public static final String COCHE = "/coche";
+    public static final String MOTO = "/moto";
+    public static final String BICICLETA = "/bicicleta";
+    public static final String PATINETE = "/patinete";
+
     //Routes
     public static String ALL_PERSON = "/persons";
 }

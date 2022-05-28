@@ -64,7 +64,6 @@ public class BicicletaController {
 
     public static Result<Bicicleta> seleccionarBicicleta(Request request, Response response){
         Result<Bicicleta> result;
-        String body = request.body();
         String bicicleta = request.queryParams("matricula");
         logger.info(bicicleta);
         result = service.seleccionarBicicleta(bicicleta);

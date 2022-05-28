@@ -109,62 +109,7 @@ public class ImpVehiculoService implements IVehiculoInterface {
         }
     }
 
-    @Override
-    public Result<Bicicleta> insertarBici(Bicicleta bicicleta) {
-        String sql = "{call gestionvehiculos.insertarbicicleta(?,?,?,?,?,?,?,?,?,?,?)}";
-        try(Connection con = MyDataSource.getOracleDataSource().getConnection();
-            CallableStatement cs = con.prepareCall(sql)) {
 
-
-            cs.setString(1,bicicleta.getMatricula());
-            cs.setDouble(2,bicicleta.getPreciohora());
-            cs.setString(3,bicicleta.getMarca());
-            cs.setString(4,bicicleta.getDescripcion());
-            cs.setString(5,bicicleta.getColor());
-            cs.setDouble(6,bicicleta.getBateria());
-            cs.setString(7,bicicleta.getFecha());
-            cs.setString(8,bicicleta.getEstado());
-            cs.setString(9,bicicleta.getTipocarnet());
-            cs.setDouble(10,bicicleta.getTamano());
-            cs.setInt(11,bicicleta.getRuedas());
-
-            cs.execute();
-
-            return new Result.Success<Bicicleta>(bicicleta);
-
-
-        } catch (SQLException throwables) {
-            return new Result.Error("no has podido anadir la bicicleta"+bicicleta.getMatricula(),404);
-        }
-    }
-
-    @Override
-    public Result<Patinete> insertarPatin(Patinete patinete) {
-        String sql = "{call gestionvehiculos.insertarpatinete(?,?,?,?,?,?,?,?,?,?)}";
-        try(Connection con = MyDataSource.getOracleDataSource().getConnection();
-            CallableStatement cs = con.prepareCall(sql)) {
-
-
-            cs.setString(1,patinete.getMatricula());
-            cs.setDouble(2,patinete.getPreciohora());
-            cs.setString(3,patinete.getMarca());
-            cs.setString(4,patinete.getDescripcion());
-            cs.setString(5,patinete.getColor());
-            cs.setDouble(6,patinete.getBateria());
-            cs.setString(7,patinete.getFecha());
-            cs.setString(8,patinete.getEstado());
-            cs.setString(9,patinete.getTipocarnet());
-            cs.setString(10,patinete.getTipo());
-
-            cs.execute();
-
-            return new Result.Success<Patinete>(patinete);
-
-
-        } catch (SQLException throwables) {
-            return new Result.Error("no has podido anadir el patinete"+patinete.getMatricula(),404);
-        }
-    }
 
 
 }

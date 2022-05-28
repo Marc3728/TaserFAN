@@ -64,7 +64,6 @@ public class MotoController {
 
     public static Result<Moto> seleccionarMoto(Request request, Response response){
         Result<Moto> result;
-        String body = request.body();
         String moto = request.queryParams("matricula");
         logger.info(moto);
         result = service.seleccionarMoto(moto);

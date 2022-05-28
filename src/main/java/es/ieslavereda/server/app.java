@@ -11,25 +11,25 @@ public class app {
         post(API.AUTH, EmpleadoController::authEmpleado, new JsonTransformer<>());
         get(API.VEHICULOS, VehiculoController::getAll, new JsonTransformer<>());
         post(API.TIPOVEHICULO, VehiculoController::getTipoVehiculo, new JsonTransformer<>());
-        post(API.INSERTARCOCHE, CocheController::insertarCoche, new JsonTransformer<>());
-        post(API.INSERTARMOTO, MotoController::insertarMoto, new JsonTransformer<>());
-        post(API.INSERTARBICICLETA, BicicletaController::insertarBicicleta, new JsonTransformer<>());
-        post(API.INSERTARPATINETE, PatineteController::insertarPatinete, new JsonTransformer<>());
+        post(API.COCHE, CocheController::insertarCoche, new JsonTransformer<>());
+        post(API.MOTO, MotoController::insertarMoto, new JsonTransformer<>());
+        post(API.BICICLETA, BicicletaController::insertarBicicleta, new JsonTransformer<>());
+        post(API.PATINETE, PatineteController::insertarPatinete, new JsonTransformer<>());
 
-        post(API.UPDATEARCOCHE, CocheController::updatearCoche, new JsonTransformer<>());
-        post(API.UPDATEARMOTO, MotoController::updatearMoto, new JsonTransformer<>());
-        post(API.UPDATEARBICICLETA, BicicletaController::updatearBicicleta, new JsonTransformer<>());
-        post(API.UPDATEARPATINETE, PatineteController::updatearPatinete, new JsonTransformer<>());
+        put(API.COCHE, CocheController::updatearCoche, new JsonTransformer<>());
+        put(API.MOTO, MotoController::updatearMoto, new JsonTransformer<>());
+        put(API.BICICLETA, BicicletaController::updatearBicicleta, new JsonTransformer<>());
+        put(API.PATINETE, PatineteController::updatearPatinete, new JsonTransformer<>());
 
-        delete(API.BORRARCOCHE, CocheController::borrarCoche, new JsonTransformer<>());
-        delete(API.BORRARMOTO, MotoController::borrarMoto, new JsonTransformer<>());
-        delete(API.BORRARBICICLETA, BicicletaController::borrarBicicleta, new JsonTransformer<>());
-        delete(API.BORRARPATINETE, PatineteController::borrarPatinete, new JsonTransformer<>());
+        delete(API.COCHE, CocheController::borrarCoche, new JsonTransformer<>());
+        delete(API.MOTO, MotoController::borrarMoto, new JsonTransformer<>());
+        delete(API.BICICLETA, BicicletaController::borrarBicicleta, new JsonTransformer<>());
+        delete(API.PATINETE, PatineteController::borrarPatinete, new JsonTransformer<>());
 
-        post(API.SELECCIONARCOCHE, CocheController::seleccionarCoche, new JsonTransformer<>());
-        post(API.SELECCIONARMOTO, MotoController::seleccionarMoto, new JsonTransformer<>());
-        post(API.SELECCIONARBICICLETA, BicicletaController::seleccionarBicicleta, new JsonTransformer<>());
-        post(API.SELECCIONARPATINETE, PatineteController::seleccionarPatinete, new JsonTransformer<>());
+        get(API.COCHE, CocheController::seleccionarCoche, new JsonTransformer<>());
+        get(API.MOTO, MotoController::seleccionarMoto, new JsonTransformer<>());
+        get(API.BICICLETA, BicicletaController::seleccionarBicicleta, new JsonTransformer<>());
+        get(API.PATINETE, PatineteController::seleccionarPatinete, new JsonTransformer<>());
     }
 }
 

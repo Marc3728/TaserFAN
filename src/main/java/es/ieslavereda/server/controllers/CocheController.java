@@ -63,7 +63,6 @@ public class CocheController {
 
     public static Result<Coche> seleccionarCoche(Request request, Response response){
         Result<Coche> result;
-        String body = request.body();
         String coche = request.queryParams("matricula");
         logger.info(coche);
         result = service.seleccionarCoche(coche);

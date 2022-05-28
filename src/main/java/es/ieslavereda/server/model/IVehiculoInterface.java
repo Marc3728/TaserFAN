@@ -9,6 +9,4 @@ public interface IVehiculoInterface {
     List<Vehiculo> getTipoVehiculo(TipoVehiculo tipo);
     Result<Coche> insertarCoche(Coche coche);
     Result<Moto> insertarMoto(Moto moto);
-    Result<Bicicleta> insertarBici(Bicicleta bicicleta);
-    Result<Patinete> insertarPatin(Patinete patinete);
 }

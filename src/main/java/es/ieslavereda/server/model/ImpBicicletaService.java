@@ -1,9 +1,6 @@
 package es.ieslavereda.server.model;
 
-import es.ieslavereda.model.Bicicleta;
-import es.ieslavereda.model.Coche;
-import es.ieslavereda.model.MyDataSource;
-import es.ieslavereda.model.Result;
+import es.ieslavereda.model.*;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,7 +10,10 @@ import java.sql.Types;
 public class ImpBicicletaService implements IBicicletaInterface {
     @Override
     public Result<Bicicleta> insertarBicicleta(Bicicleta bicicleta) {
-        String sql = "{call gestionvehiculos.insertarbicicleta(?,?,?,?,?,?,?,?,?,?,?)}";
+
+
+
+        String sql = "{call gestionvehiculos.insertarbicicleta(?,?,?,?,?,?,?,?,?,?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
@@ -27,8 +27,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
             cs.setString(7,bicicleta.getFecha());
             cs.setString(8,bicicleta.getEstado());
             cs.setString(9,bicicleta.getTipocarnet());
-            cs.setDouble(10,bicicleta.getTamano());
-            cs.setInt(11,bicicleta.getRuedas());
+            cs.setString(10,bicicleta.getTipo());
 
             cs.execute();
 
@@ -36,13 +35,13 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido anadir la bicicleta"+bicicleta.getMatricula(),404);
+            return new Result.Error("no has podido anadir el patinete"+bicicleta.getMatricula(),404);
         }
     }
 
     @Override
     public Result<Bicicleta> updatearBicicleta(Bicicleta bicicleta) {
-        String sql = "{call gestionvehiculos.actualizarBicicleta(?,?,?,?,?,?,?,?,?,?,?)}";
+        String sql = "{call gestionvehiculos.actualizarBicicleta(?,?,?,?,?,?,?,?,?,?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
@@ -56,8 +55,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
             cs.setString(7,bicicleta.getFecha());
             cs.setString(8,bicicleta.getEstado());
             cs.setString(9,bicicleta.getTipocarnet());
-            cs.setDouble(10,bicicleta.getTamano());
-            cs.setInt(11,bicicleta.getRuedas());
+            cs.setString(10,bicicleta.getTipo());
 
             cs.execute();
 
@@ -65,7 +63,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido actualizar la bicicleta"+bicicleta.getMatricula(),404);
+            return new Result.Error("no has podido actualizar el patinete"+bicicleta.getMatricula(),404);
         }
     }
 
@@ -90,7 +88,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
     @Override
     public Result<Bicicleta> seleccionarBicicleta(String matricula) {
-        String sql = "{call gestionvehiculos.consultarbicicleta(?,?,?,?,?,?,?,?,?,?,?)}";
+        String sql = "{call gestionvehiculos.consultarbicicleta(?,?,?,?,?,?,?,?,?,?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
@@ -104,12 +102,11 @@ public class ImpBicicletaService implements IBicicletaInterface {
             cs.registerOutParameter(7, Types.VARCHAR);
             cs.registerOutParameter(8, Types.VARCHAR);
             cs.registerOutParameter(9, Types.VARCHAR);
-            cs.registerOutParameter(10, Types.NUMERIC);
-            cs.registerOutParameter(11, Types.NUMERIC);
+            cs.registerOutParameter(10, Types.VARCHAR);
 
             cs.execute();
 
-            Bicicleta bicicleta = new Bicicleta(matricula,cs.getDouble(2),cs.getString(3),cs.getString(4),cs.getString(5),cs.getDouble(6),cs.getString(7),cs.getString(8),cs.getString(9),cs.getDouble(10),cs.getInt(11));
+            Bicicleta bicicleta = new Bicicleta(matricula,cs.getDouble(2),cs.getString(3),cs.getString(4),cs.getString(5),cs.getDouble(6),cs.getString(7),cs.getString(8),cs.getString(9),cs.getString(10));
 
 
             return new Result.Success<Bicicleta>(bicicleta);

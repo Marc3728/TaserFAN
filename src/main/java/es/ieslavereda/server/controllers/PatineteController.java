@@ -64,7 +64,6 @@ public class PatineteController {
 
     public static Result<Patinete> seleccionarPatinete(Request request, Response response){
         Result<Patinete> result;
-        String body = request.body();
         String patinete = request.queryParams("matricula");
         logger.info(patinete);
         result = service.seleccionarPatinete(patinete);

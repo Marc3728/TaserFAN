@@ -67,37 +67,7 @@ public class VehiculoController {
         return result;
     }
 
-    public static Result<Bicicleta> insertarBicicleta(Request request, Response response){
-        Result<Bicicleta> result;
-        String body = request.body();
-        Bicicleta bicicleta = jsonTransformerb.getObject(body,Bicicleta.class);
-        logger.info(bicicleta.getMatricula());
-        result = service.insertarBici(bicicleta);
 
-        if (result instanceof Result.Success){
-            response.status(200);
-        } else {
-            response.status(404);
-        }
-
-        return result;
-    }
-
-    public static Result<Patinete> insertarPatinete(Request request, Response response){
-        Result<Patinete> result;
-        String body = request.body();
-        Patinete patinete = jsonTransformerp.getObject(body,Patinete.class);
-        logger.info(patinete.getMatricula());
-        result = service.insertarPatin(patinete);
-
-        if (result instanceof Result.Success){
-            response.status(200);
-        } else {
-            response.status(404);
-        }
-
-        return result;
-    }
 
 
 }

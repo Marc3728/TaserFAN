@@ -1,9 +1,6 @@
 package es.ieslavereda.server.model;
 
-import es.ieslavereda.model.Coche;
-import es.ieslavereda.model.MyDataSource;
-import es.ieslavereda.model.Patinete;
-import es.ieslavereda.model.Result;
+import es.ieslavereda.model.*;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,7 +10,7 @@ import java.sql.Types;
 public class ImpPatineteService implements IPatineteInterface {
     @Override
     public Result<Patinete> insertarPatinete(Patinete patinete) {
-        String sql = "{call gestionvehiculos.insertarpatinete(?,?,?,?,?,?,?,?,?,?)}";
+        String sql = "{call gestionvehiculos.insertarpatinete(?,?,?,?,?,?,?,?,?,?,?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
@@ -27,7 +24,8 @@ public class ImpPatineteService implements IPatineteInterface {
             cs.setString(7,patinete.getFecha());
             cs.setString(8,patinete.getEstado());
             cs.setString(9,patinete.getTipocarnet());
-            cs.setString(10,patinete.getTipo());
+            cs.setDouble(10,patinete.getTamano());
+            cs.setInt(11,patinete.getRuedas());
 
             cs.execute();
 
@@ -35,13 +33,15 @@ public class ImpPatineteService implements IPatineteInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido anadir el patinete"+patinete.getMatricula(),404);
+            return new Result.Error("no has podido anadir la bicicleta"+patinete.getMatricula(),404);
         }
     }
 
     @Override
     public Result<Patinete> updatearPatinete(Patinete patinete) {
-        String sql = "{call gestionvehiculos.actualizarPatinete(?,?,?,?,?,?,?,?,?,?)}";
+
+
+        String sql = "{call gestionvehiculos.actualizarPatinete(?,?,?,?,?,?,?,?,?,?,?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
@@ -55,7 +55,8 @@ public class ImpPatineteService implements IPatineteInterface {
             cs.setString(7,patinete.getFecha());
             cs.setString(8,patinete.getEstado());
             cs.setString(9,patinete.getTipocarnet());
-            cs.setString(10,patinete.getTipo());
+            cs.setDouble(10,patinete.getTamano());
+            cs.setInt(11,patinete.getRuedas());
 
             cs.execute();
 
@@ -63,7 +64,7 @@ public class ImpPatineteService implements IPatineteInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido actualizar el patinete"+patinete.getMatricula(),404);
+            return new Result.Error("no has podido actualizar la bicicleta"+patinete.getMatricula(),404);
         }
     }
 
@@ -88,7 +89,9 @@ public class ImpPatineteService implements IPatineteInterface {
 
     @Override
     public Result<Patinete> seleccionarPatinete(String matricula) {
-        String sql = "{call gestionvehiculos.consultarcoche(?,?,?,?,?,?,?,?,?,?)}";
+
+
+        String sql = "{call gestionvehiculos.consultarpatinete(?,?,?,?,?,?,?,?,?,?,?)}";
         try(Connection con = MyDataSource.getOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
@@ -102,11 +105,12 @@ public class ImpPatineteService implements IPatineteInterface {
             cs.registerOutParameter(7, Types.VARCHAR);
             cs.registerOutParameter(8, Types.VARCHAR);
             cs.registerOutParameter(9, Types.VARCHAR);
-            cs.registerOutParameter(10, Types.VARCHAR);
+            cs.registerOutParameter(10, Types.NUMERIC);
+            cs.registerOutParameter(11, Types.NUMERIC);
 
             cs.execute();
 
-            Patinete patinete = new Patinete(matricula,cs.getDouble(2),cs.getString(3),cs.getString(4),cs.getString(5),cs.getDouble(6),cs.getString(7),cs.getString(8),cs.getString(9),cs.getString(10));
+            Patinete patinete = new Patinete(matricula,cs.getDouble(2),cs.getString(3),cs.getString(4),cs.getString(5),cs.getDouble(6),cs.getString(7),cs.getString(8),cs.getString(9),cs.getDouble(10),cs.getInt(11));
 
 
             return new Result.Success<Patinete>(patinete);

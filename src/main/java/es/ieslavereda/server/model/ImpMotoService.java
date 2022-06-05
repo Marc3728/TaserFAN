@@ -36,7 +36,7 @@ public class ImpMotoService implements IMotoInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido anadir la moto"+moto.getMatricula(),404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -65,7 +65,7 @@ public class ImpMotoService implements IMotoInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido actualizar la moto"+moto.getMatricula(),404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -84,7 +84,7 @@ public class ImpMotoService implements IMotoInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido actualizar la moto"+matricula,404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -116,7 +116,7 @@ public class ImpMotoService implements IMotoInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido seleccionar la moto"+matricula,404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 }

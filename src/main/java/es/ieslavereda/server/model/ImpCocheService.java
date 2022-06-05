@@ -36,7 +36,7 @@ public class ImpCocheService implements ICocheInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido anadir el coche"+coche.getMatricula(),404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -66,7 +66,7 @@ public class ImpCocheService implements ICocheInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido actualizar el coche"+coche.getMatricula(),404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -86,7 +86,7 @@ public class ImpCocheService implements ICocheInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido borrar el coche"+matricula,404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -118,7 +118,7 @@ public class ImpCocheService implements ICocheInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido seleccionar el coche"+matricula,404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 }

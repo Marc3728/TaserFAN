@@ -35,7 +35,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido anadir el patinete"+bicicleta.getMatricula(),404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -63,7 +63,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido actualizar el patinete"+bicicleta.getMatricula(),404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -82,7 +82,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido borrar la bicicleta"+matricula,404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 
@@ -113,7 +113,7 @@ public class ImpBicicletaService implements IBicicletaInterface {
 
 
         } catch (SQLException throwables) {
-            return new Result.Error("no has podido seleccionar la bicicleta"+matricula,404);
+            return new Result.Error(throwables.getMessage(),throwables.getErrorCode());
         }
     }
 }
